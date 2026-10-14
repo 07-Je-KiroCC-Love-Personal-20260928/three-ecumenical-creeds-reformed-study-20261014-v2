@@ -1,3 +1,6 @@
 .netlify/
 CNAME
 node_modules/
+__pycache__/
+tools/cci/*.html
+tools/cci/*.txt
