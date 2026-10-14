@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>三大普世信经 · 欧陆改革宗深度解读 | v2 · 2026-10-14</title>
+<meta name="description" content="使徒信经、尼西亚信经、亚他那修信经：圣经神学、圣约神学、历史背景、地图、逐条解析、背诵版、三项联合信条对照与记忆训练。">
+<meta name="theme-color" content="#070b1a">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📜</text></svg>">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="assets/style.css">
+<script>document.documentElement.classList.add("js");try{var t=localStorage.getItem("ac-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+</head>
+<body>
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+<div class="progress" id="progress"></div>
+
+<header class="topbar">
+  <button class="icon-btn" id="tocBtn" aria-label="显示/隐藏目录" aria-expanded="true">☰ <span class="lbl">目录</span></button>
+  <div class="brand">📜 <b>三大普世信经</b> · 欧陆改革宗深度解读 <span class="muted small">v2 · 2026-10-14</span></div>
+  <a class="icon-btn" href="#recite" aria-label="跳到背诵版">🎙️ <span class="lbl">背诵版</span></a>
+  <button class="icon-btn" id="latinBtn" aria-label="显示/隐藏拉丁原文">🏛️ <span class="lbl">拉丁文</span></button>
+  <button class="icon-btn" id="themeBtn" aria-label="切换明暗主题">🌗 <span class="lbl">主题</span></button>
+</header>
+
+<div class="layout">
+  <nav class="sidebar" id="sidebar" aria-label="目录">
+    <div class="toc-title">CONTENTS · 详细目录</div>
+    <input class="toc-search" id="tocSearch" type="search" placeholder="🔍 搜索目录…" aria-label="搜索目录">
+    <ol class="toc" id="toc"></ol>
+  </nav>
+  <div class="scrim" id="scrim"></div>
+
+<main class="main" id="main">
+
+<!-- ================= HERO ================= -->
+<section class="sec reveal" id="top">
+  <div class="hero" style="padding:0">
+    <div>
+      <span class="kicker">Tria Symbola Oecumenica · The Three Ecumenical Creeds</span>
+      <h1><span class="grad">三大普世信经</span></h1>
+      <p class="lead">一位上帝，三个文本，一个中心。<span class="hl hl-green">使徒信经</span>讲救恩的<b>故事</b>，<span class="hl hl-amber">尼西亚信经</span>定义救主的<b>身份</b>，<span class="hl hl-teal">亚他那修信经</span>把三一与二性写成<b>精密的规则</b>。改革宗教会借比利时信条第9条把三者一并接受，作为对圣经的忠实总结。</p>
+      <div class="formula" style="margin-top:14px">父 —— 子 —— 灵<br><span class="small">三信经同一骨架（太28:19），同一中心：<span class="c-s">真神真人的基督</span></span></div>
+    </div>
+    <svg class="hero-svg" viewBox="0 0 400 400" role="img" aria-label="三位一体动态示意图">
+      <defs>
+        <radialGradient id="hg" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffd166" stop-opacity=".55"/><stop offset="1" stop-color="#ffd166" stop-opacity="0"/></radialGradient>
+        <linearGradient id="tri" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6b73c"/><stop offset=".5" stop-color="#ff5c7a"/><stop offset="1" stop-color="#22d3b6"/></linearGradient>
+      </defs>
+      <circle cx="200" cy="200" r="190" fill="url(#hg)" class="pulse"/>
+      <g class="spin"><circle cx="200" cy="200" r="175" fill="none" stroke="url(#tri)" stroke-width="1.5" class="dash"/></g>
+      <g class="spin rev"><circle cx="200" cy="200" r="150" fill="none" stroke="#a78bfa" stroke-opacity=".5" stroke-width="1" stroke-dasharray="2 10"/></g>
+      <polygon points="200,62 322,272 78,272" fill="none" stroke="url(#tri)" stroke-width="3"/>
+      <line x1="200" y1="62" x2="200" y2="200" stroke="#ffd166" stroke-width="2" class="dash"/>
+      <line x1="322" y1="272" x2="200" y2="200" stroke="#ffd166" stroke-width="2" class="dash"/>
+      <line x1="78" y1="272" x2="200" y2="200" stroke="#ffd166" stroke-width="2" class="dash"/>
+      <circle cx="200" cy="62" r="34" fill="#f6b73c"/><text x="200" y="69" text-anchor="middle" font-size="20" font-weight="800" fill="#111">父</text>
+      <circle cx="322" cy="272" r="34" fill="#ff5c7a"/><text x="322" y="279" text-anchor="middle" font-size="20" font-weight="800" fill="#111">子</text>
+      <circle cx="78" cy="272" r="34" fill="#22d3b6"/><text x="78" y="279" text-anchor="middle" font-size="20" font-weight="800" fill="#111">灵</text>
+      <circle cx="200" cy="200" r="40" fill="#ffd166" class="pulse"/><text x="200" y="208" text-anchor="middle" font-size="20" font-weight="900" fill="#111">上帝</text>
+      <text x="200" y="350" text-anchor="middle" font-size="15" class="svg-text">一个本质 · 三个位格</text>
+    </svg>
+  </div>
+  <div class="trio">
+    <div class="creed-card" style="--c:var(--green)"><div class="em">🌱</div><h4>使徒信经</h4>
+      <div class="meta"><span class="chip gr">≈2世纪起 · 罗马</span><span class="chip">拉丁</span><span class="chip">12 条</span></div>
+      <p><b>洗礼认信</b>：“我信……”。源自罗马洗礼时的三段问答，讲述父创造、子救赎、灵成圣的<b>救恩故事</b>。</p></div>
+    <div class="creed-card" style="--c:var(--father)"><div class="em">🌳</div><h4>尼西亚信经</h4>
+      <div class="meta"><span class="chip f">325 / 381 · 小亚细亚</span><span class="chip">希腊</span><span class="chip">4 段</span></div>
+      <p><b>会议定义</b>：“受生而非被造，与父同质”。回答阿里乌：<b>基督是谁？</b>——真神。</p></div>
+    <div class="creed-card" style="--c:var(--spirit)"><div class="em">🛡️</div><h4>亚他那修信经</h4>
+      <div class="meta"><span class="chip h">≈430–500 · 南高卢</span><span class="chip">拉丁</span><span class="chip">44 条</span></div>
+      <p><b>教义诗篇</b>：“不混位格，不分本质”。把三一论与基督论写成可背诵的<b>护栏</b>。</p></div>
+  </div>
+</section>
+
+<!-- ================= 0 速记 ================= -->
+<section class="sec reveal" id="memory" style="--accent:linear-gradient(90deg,var(--pink),var(--gold))">
+  <h2 id="h-memory"><span class="ico">🧠</span>速记总纲：五个口诀记住全部</h2>
+  <div class="grid g3">
+    <div class="tile" style="--c:var(--gold)"><h4>🔢 ① “二三五”——年代</h4><p>使徒 ≈ <b>2</b>xx（罗马洗礼，c.215 有书面记载）<br>尼西亚 <b>3</b>xx（<b>325</b> 定子，<b>381</b> 定灵）<br>亚他那修 ≈ <b>5</b>xx（约500年，南高卢）</p></div>
+    <div class="tile" style="--c:var(--green)"><h4>🌱 ② “种子·树干·盾牌”——功能</h4><p>使徒＝<b>种子</b>：最短，洗礼时认信<br>尼西亚＝<b>树干</b>：会议定义，主日宣认<br>亚他那修＝<b>盾牌</b>：最长，抵挡异端</p></div>
+    <div class="tile" style="--c:var(--son)"><h4>🎯 ③ “故事·身份·规则”——内容</h4><p>使徒：神<b>做了</b>什么（故事）<br>尼西亚：基督<b>是</b>谁（身份）<br>亚他那修：怎样<b>正确地说</b>（规则）</p></div>
+    <div class="tile" style="--c:var(--father)"><h4>🏛️ ④ “3字头三一，4字头基督”——会议</h4><p><b>325、381</b> → 上帝是谁（三一）<br><b>431、451</b> → 基督是谁（二性一位）<br>亚他那修信经上半部＝3字头，下半部＝4字头</p></div>
+    <div class="tile" style="--c:var(--blue)"><h4>🌊 ⑤ “比·海·多”——改革宗</h4><p><b>比</b>利时信条 1561：第9条接受三信经<br><b>海</b>德堡要理问答 1563：以使徒信经为骨架<br><b>多</b>特信经 1619：以三一—二性奠定救恩<br>“恩典比海还多”</p></div>
+    <div class="tile" style="--c:var(--purple)"><h4>🔺 共同骨架</h4><p>三信经都是<b>父—子—灵</b>三段，<b>子的部分最长</b>：<br>因为圣经的中心是基督，而一切争论最终都是“<b>谁是耶稣？</b>”</p></div>
+  </div>
+
+  <h3 id="h-compare"><span class="ico">📊</span>三信经一表对照</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>项目</th><th><span class="c-gr">🌱 使徒信经</span></th><th><span class="c-f">🌳 尼西亚信经</span></th><th><span class="c-h">🛡️ 亚他那修信经</span></th></tr></thead>
+    <tbody>
+      <tr><td>形成</td><td>2世纪旧罗马信条 → c.710–724 定本</td><td>325 尼西亚 → 381 君士坦丁堡</td><td>约430–500，南高卢</td></tr>
+      <tr><td>语言 / 地区</td><td>拉丁 · 罗马、西方</td><td>希腊 · 东方大公会议</td><td>拉丁 · 阿尔勒、勒兰</td></tr>
+      <tr><td>文体</td><td>洗礼认信（“我信”）</td><td>会议信经（原文“我们信”）</td><td>教义诗篇（“大公信仰乃是”）</td></tr>
+      <tr><td>主要对手</td><td>马吉安、诺斯底</td><td>阿里乌、抗圣灵派</td><td>阿里乌派日耳曼诸王；形态论；基督论诸异端</td></tr>
+      <tr><td>核心一句</td><td>“在本丢彼拉多手下受难”</td><td>“受生而非被造，与父同质”</td><td>“不混位格，不分本质”</td></tr>
+      <tr><td>结构</td><td>3 部分 · 12 条</td><td>4 段（父、子、灵、教会与盼望）</td><td>2 大部分 · 44 条</td></tr>
+      <tr><td>改革宗位置</td><td>海德堡Q23–58 逐条讲解</td><td>主日敬拜、圣餐时宣认</td><td>比利时信条第9条接受；教导与护教</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= 1 背诵版 ================= -->
+<section class="sec reveal" id="recite" style="--accent:linear-gradient(90deg,var(--green),var(--father),var(--spirit))">
+  <h2 id="h-recite"><span class="ico">🎙️</span>一、三信经干净背诵版</h2>
+  <p class="lead">先背文本，再学解析。左侧色条标示段落：<span class="c-f">■ 父</span> <span class="c-s">■ 子</span> <span class="c-h">■ 圣灵</span> <span class="c-p">■ 教会与盼望</span>。</p>
+  <div class="tabs" role="tablist" id="rtabs">
+    <button role="tab" class="on" data-p="apos" style="--c:var(--green)">🌱 使徒信经</button>
+    <button role="tab" data-p="nic" style="--c:var(--father)">🌳 尼西亚信经</button>
+    <button role="tab" data-p="ath" style="--c:var(--spirit)">🛡️ 亚他那修信经</button>
+  </div>
+  <div class="modes" id="rmodes">
+    <button class="on" data-m="full">📖 全文</button>
+    <button data-m="hint">🔤 首字提示</button>
+    <button data-m="blur">🙈 遮盖自测</button>
+    <button data-act="speak">🔊 朗读</button>
+    <button data-act="print">🖨️ 打印背诵版</button>
+  </div>
+  <p class="small muted" id="rtip">“首字提示”与“遮盖自测”模式下，点击任一行即可显示该行。</p>
+  <div class="rpanel" data-p="apos"><div class="paper"><h3>使徒信经</h3><div class="sub">Symbolum Apostolorum · 12 条</div><div id="rc-apos"></div></div></div>
+  <div class="rpanel" data-p="nic" hidden><div class="paper"><h3>尼西亚信经</h3><div class="sub">Symbolum Nicaeno-Constantinopolitanum · 381 · 西方通行形式</div><div id="rc-nic"></div></div></div>
+  <div class="rpanel" data-p="ath" hidden><div class="paper"><h3>亚他那修信经</h3><div class="sub">Symbolum Quicunque · 44 条</div><div id="rc-ath"></div></div></div>
+  <div class="callout memo"><b class="t">背诵法：三遍法</b><p>① <b>全文</b>朗读三遍，留意色条分段；② 切到<b>首字提示</b>，只看首字背出全句；③ 切到<b>遮盖自测</b>，逐行背出后点击核对。亚他那修信经建议按“门（1–2）· 三（3–28）· 二（29–37）· 工（38–43）· 印（44）”五段分五天背。</p></div>
+</section>
+
+<!-- ================= 2 圣经整体 ================= -->
+<section class="sec reveal" id="bible" style="--accent:linear-gradient(90deg,var(--blue),var(--spirit))">
+  <h2 id="h-bible"><span class="ico">📖</span>二、跳出框架：从整本圣经看三信经</h2>
+  <p class="lead">信经不是在圣经之外另加教义，而是把整本圣经关于“<b>上帝是谁、祂做了什么</b>”的启示收成一句话。圣经是<span class="hl hl-gold">规范一切的规范</span>（norma normans），信经是<span class="hl hl-blue">被规范的规范</span>（norma normata）——比利时信条第7条：任何人的著作都不可与圣经等量齐观。</p>
+
+  <h3 id="h-story"><span class="ico">🧭</span>故事线：圣经大叙事 ⇄ 信经条目</h3>
+  <div class="diagram wide"><pre class="mermaid">
+flowchart LR
+  A["🌍 创造<br/>创1 · 约1:3"]:::f --> B["🍎 堕落<br/>创3 · 罗5:12"]:::r --> C["🌱 应许<br/>创3:15"]:::g --> D["🕊️ 以色列<br/>申6:4"]:::b --> E["👶 道成肉身<br/>约1:14"]:::s --> F["✝️ 十架复活<br/>林前15:3-4"]:::s --> G["🔥 五旬节<br/>徒2:33"]:::h --> H["⛪ 教会<br/>太16:18"]:::p --> I["👑 再来成全<br/>启21"]:::gold
+  classDef gold fill:#ffd166,stroke:#ffd166,color:#111
+  classDef f fill:#f6b73c,stroke:#f6b73c,color:#111
+  classDef s fill:#ff5c7a,stroke:#ff5c7a,color:#111
+  classDef h fill:#22d3b6,stroke:#22d3b6,color:#111
+  classDef r fill:#ff6b6b,stroke:#ff6b6b,color:#111
+  classDef g fill:#34d399,stroke:#34d399,color:#111
+  classDef b fill:#5aa9ff,stroke:#5aa9ff,color:#111
+  classDef p fill:#a78bfa,stroke:#a78bfa,color:#111
+  </pre></div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>圣经阶段</th><th>关键经文</th><th>🌱 使徒信经</th><th>🌳 尼西亚信经</th><th>🛡️ 亚他那修信经</th></tr></thead>
+    <tbody>
+      <tr><td><span class="chip f">🌍 创造</span></td><td>创1:1-3；约1:3；西1:16</td><td>第1条 创造天地的主</td><td>有形无形万物；万物借着子造</td><td>8–10 三位皆非受造</td></tr>
+      <tr><td><span class="chip r">🍎 堕落</span></td><td>创3；何6:7；罗5:12</td><td>（预设）罪得赦免</td><td>“为要拯救我们世人”</td><td>2、43 灭亡与永火</td></tr>
+      <tr><td><span class="chip gr">🌱 应许</span></td><td>创3:15；赛7:14；加4:4</td><td>第3条 童贞女所生</td><td>从童贞女马利亚成肉身</td><td>31 从母亲的本质而生</td></tr>
+      <tr><td><span class="chip b">🕊️ 以色列</span></td><td>申6:4；诗110:1；赛48:16</td><td>“我信上帝”</td><td>“我信<b>独一</b>上帝”</td><td>16 不是三个上帝</td></tr>
+      <tr><td><span class="chip s">✝️ 基督</span></td><td>约1:14；腓2:6-11；林前15:3-4</td><td>第2–7条</td><td>子的段落（最长）</td><td>29–40</td></tr>
+      <tr><td><span class="chip h">🔥 圣灵</span></td><td>约15:26；徒2:33；彼后1:21</td><td>第8条 我信圣灵</td><td>是主、赐生命、借先知说话</td><td>15、23 灵是神，出于父和子</td></tr>
+      <tr><td><span class="chip p">⛪ 教会</span></td><td>太16:18；弗4:4-6</td><td>第9–10条</td><td>独一圣公使徒教会；一洗</td><td>1、44 大公信仰</td></tr>
+      <tr><td><span class="chip g">👑 成全</span></td><td>约5:28-29；启21–22</td><td>第11–12条</td><td>死人复活，来世生命</td><td>41–43 身体复活与交账</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 id="h-reveal"><span class="ico">🌗</span>渐进启示：旧约的影子 → 新约的显明</h3>
+  <p>华腓德的比喻：旧约像<b>陈设齐全却光线昏暗</b>的屋子，新约把灯点亮——家具没有增加，只是看清了。</p>
+  <div class="table-wrap"><table class="narrow">
+    <thead><tr><th>旧约影子</th><th>新约显明</th><th>信经落点</th></tr></thead>
+    <tbody>
+      <tr><td>申6:4 耶和华是<b>独一</b>的主</td><td>林前8:6 一位神（父）、一位主（耶稣基督）</td><td>尼西亚“独一上帝……独一主”——<span class="hl hl-gold">示玛被“基督化”</span></td></tr>
+      <tr><td>创1:26 “<b>我们</b>要照着<b>我们</b>的形像”</td><td>约1:1-3；西1:16</td><td>“万物都是借着他造的”</td></tr>
+      <tr><td>诗2:7 “你是我的儿子”</td><td>来1:5；约1:14,18</td><td>“独生子”“受生”</td></tr>
+      <tr><td>箴8:22 智慧“在造化的起头”</td><td>约1:1；林前1:24</td><td><span class="hl hl-red">阿里乌的王牌经文</span> → 尼西亚：受生而非被造</td></tr>
+      <tr><td>赛48:16 主耶和华差遣我和祂的灵</td><td>太3:16-17；路4:18</td><td>三位同场</td></tr>
+      <tr><td>—</td><td>太28:19 奉父、子、圣灵的<b>名</b>（单数）</td><td>三信经共同骨架</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 id="h-covenant"><span class="ico">🤝</span>圣约神学：三信经各自守住圣约的哪一环</h3>
+  <div class="diagram"><pre class="mermaid">
+flowchart TD
+  T["🔺 三一上帝<br/>永恒中父、子、灵的爱之团契"]:::gold --> P["📜 救赎之约<br/>父差遣 · 子承担 · 灵施行<br/>诗2:7-8 · 约6:38-40 · 弗1:3-14"]:::f
+  P --> W["🌳 行为之约<br/>亚当为元首 · 背约致死<br/>何6:7 · 罗5:12-21"]:::r
+  W --> G["🌈 恩典之约<br/>创3:15 → 亚伯拉罕 → 大卫 → 新约"]:::g
+  G --> M{"⚖️ 中保必须是谁？<br/>海德堡 Q12-19"}:::p
+  M -->|真人 Q16| H1["👤 完全的人"]:::s
+  M -->|真神 Q17| H2["👑 完全的神"]:::s
+  M -->|一位| H3["✨ 一位基督"]:::s
+  H1 --> A["🕊️ 圣灵施行救恩 · 洗礼入约"]:::h
+  H2 --> A
+  H3 --> A
+  A --> E["👑 约的成全：我要作他们的神 · 启21:3"]:::b
+  classDef gold fill:#ffd166,stroke:#ffd166,color:#111
+  classDef f fill:#f6b73c,stroke:#f6b73c,color:#111
+  classDef s fill:#ff5c7a,stroke:#ff5c7a,color:#111
+  classDef h fill:#22d3b6,stroke:#22d3b6,color:#111
+  classDef r fill:#ff6b6b,stroke:#ff6b6b,color:#111
+  classDef g fill:#34d399,stroke:#34d399,color:#111
+  classDef b fill:#5aa9ff,stroke:#5aa9ff,color:#111
+  classDef p fill:#a78bfa,stroke:#a78bfa,color:#111
+  </pre></div>
+  <div class="grid g3">
+    <div class="tile" style="--c:var(--green)"><h4>🌱 使徒信经 ＝ 约的<b>故事与回应</b></h4><p>它本是<b>洗礼认信</b>：受洗者在“奉父、子、圣灵的名”入约时，口里说出“我信”。从创造到永生，正是恩典之约的全程；“我信”是立约子民的<b>回应</b>（海德堡Q21–23）。</p></div>
+    <div class="tile" style="--c:var(--father)"><h4>🌳 尼西亚信经 ＝ 约的<b>中保是谁</b></h4><p>“为要拯救我们世人”——若子不是“与父同质”，救赎之约就不是平等位格之间的约定，十字架也不能承担无限的愤怒。多特信经第二章第4条：基督之死有<span class="hl hl-gold">无限价值</span>，因受死者是与父和灵同一本质的神子。</p></div>
+    <div class="tile" style="--c:var(--spirit)"><h4>🛡️ 亚他那修信经 ＝ 约的<b>根基与结构</b></h4><p>上半部守住<b>立约的上帝</b>：三位同等，救赎之约才成立；下半部守住<b>立约的中保</b>：真神（能救）、真人（代人）、一位（工作有效）。结尾的审判，是约的<b>终局</b>。</p></div>
+  </div>
+  <div class="callout key"><b class="t">本质核心一句话</b><p>圣约的<b>源头</b>是三一上帝的永恒团契；圣约的<b>中心</b>是真神真人一位的中保；圣约的<b>施行者</b>是出于父和子的圣灵；圣约的<b>终点</b>是复活与永生。三信经按同一顺序写成。</p></div>
+</section>
+
+<!-- ================= 3 历史背景 ================= -->
+<section class="sec reveal" id="history" style="--accent:linear-gradient(90deg,var(--father),var(--orange))">
+  <h2 id="h-history"><span class="ico">🏺</span>三、真实背景：一条时间线 · 一张地图 · 四种文化</h2>
+
+  <h3 id="h-timeline"><span class="ico">⏳</span>统一时间线（16 个关键节点）</h3>
+  <p class="small muted">每个节点统一格式：年份 · 事件 · 📍地点 · 👑在位者 · 📜与哪部信经相关。可按信经筛选。</p>
+  <div class="era-filter" id="eraFilter">
+    <button class="on" data-era="all" style="--c:var(--gold)">全部</button>
+    <button data-era="a" style="--c:var(--green)">🌱 使徒信经</button>
+    <button data-era="n" style="--c:var(--father)">🌳 尼西亚信经</button>
+    <button data-era="q" style="--c:var(--spirit)">🛡️ 亚他那修信经</button>
+    <button data-era="r" style="--c:var(--blue)">🌊 改革宗</button>
+  </div>
+  <div class="timeline" id="timelineList">
+    <div class="tl star" data-era="a n q" style="--c:var(--gold)"><span class="when">c.30–33</span><span class="what">耶稣受难、复活；颁布大使命</span><p>“奉父、子、圣灵的名给他们施洗”（太28:19）——三信经的共同源头。</p><div class="meta"><span class="chip">📍 耶路撒冷</span><span class="chip">👑 提比略；巡抚本丢彼拉多（26–36）</span><span class="chip gr">📜 三信经</span></div></div>
+    <div class="tl" data-era="a" style="--c:var(--green)"><span class="when">c.144–200</span><span class="what">“信仰准则”与旧罗马洗礼信条</span><p>马吉安被罗马教会逐出（c.144）；爱任纽、德尔图良以“信仰准则”对抗马吉安与诺斯底。</p><div class="meta"><span class="chip">📍 罗马 · 里昂 · 迦太基</span><span class="chip">👑 安东尼·庇护 / 马可·奥勒留</span><span class="chip gr">📜 使徒</span></div></div>
+    <div class="tl star" data-era="a" style="--c:var(--green)"><span class="when">c.215</span><span class="what">《使徒传统》（传统上归于希坡律陀）</span><p>记载三段问答式洗礼：“你信全能的父神吗？……你信基督耶稣吗？……你信圣灵吗？”——使徒信经的雏形。</p><div class="meta"><span class="chip">📍 罗马</span><span class="chip">👑 卡拉卡拉</span><span class="chip gr">📜 使徒</span></div></div>
+    <div class="tl" data-era="n" style="--c:var(--father)"><span class="when">c.318</span><span class="what">阿里乌之争爆发</span><p>“曾有一时，祂（子）不存在。”</p><div class="meta"><span class="chip">📍 亚历山大</span><span class="chip">👑 君士坦丁 / 李锡尼</span><span class="chip f">📜 尼西亚</span></div></div>
+    <div class="tl star" data-era="n" style="--c:var(--father)"><span class="when">325</span><span class="what">尼西亚会议（第一次大公会议）</span><p>宣告子与父“同质”（homoousios）。年轻执事亚他那修随主教与会，此后任亚历山大主教（328–373），五次被流放。</p><div class="meta"><span class="chip">📍 尼西亚</span><span class="chip">👑 君士坦丁大帝</span><span class="chip f">📜 尼西亚</span></div></div>
+    <div class="tl star" data-era="n" style="--c:var(--father)"><span class="when">381</span><span class="what">君士坦丁堡会议（第二次大公会议）</span><p>扩写圣灵条款，形成今日的“尼西亚信经”；定罪亚波里拿留。前一年（380）帖撒罗尼迦敕令定尼西亚信仰为国教。</p><div class="meta"><span class="chip">📍 君士坦丁堡</span><span class="chip">👑 狄奥多西一世</span><span class="chip f">📜 尼西亚</span></div></div>
+    <div class="tl" data-era="a" style="--c:var(--green)"><span class="when">c.404</span><span class="what">鲁菲努斯《使徒信经注释》</span><p>记载“十二使徒各撰一句”的传说；提到阿奎莱亚信条有“降在阴间”。</p><div class="meta"><span class="chip">📍 阿奎莱亚</span><span class="chip">👑 霍诺里乌斯（西）</span><span class="chip gr">📜 使徒</span></div></div>
+    <div class="tl" data-era="q" style="--c:var(--spirit)"><span class="when">c.400–420</span><span class="what">奥古斯丁《论三位一体》</span><p>三位平等、本质单一、灵出于父和子——亚他那修信经的思想母体。</p><div class="meta"><span class="chip">📍 希坡（北非）</span><span class="chip">👑 霍诺里乌斯</span><span class="chip h">📜 亚他那修</span></div></div>
+    <div class="tl star" data-era="n q" style="--c:var(--son)"><span class="when">431 / 451</span><span class="what">以弗所会议 · 迦克墩会议</span><p>431：基督是<b>一个位格</b>；451：二性“不混合、不改变、不分割、不离散”，并正式宣读确认381信经。</p><div class="meta"><span class="chip">📍 以弗所 · 迦克墩</span><span class="chip">👑 狄奥多西二世 / 马西安</span><span class="chip h">📜 亚他那修下半部</span></div></div>
+    <div class="tl star" data-era="q" style="--c:var(--spirit)"><span class="when">c.430–500</span><span class="what">亚他那修信经以拉丁文写成</span><p>出自勒兰—阿尔勒修道圈（作者不详）；阿尔勒主教凯撒利乌斯（502–542）最早明确引用。</p><div class="meta"><span class="chip">📍 勒兰 · 阿尔勒</span><span class="chip">👑 西哥特王尤里克（466–484）</span><span class="chip h">📜 亚他那修</span></div></div>
+    <div class="tl" data-era="q" style="--c:var(--spirit)"><span class="when">476</span><span class="what">西罗马帝国灭亡</span><p>西哥特、东哥特、汪达尔、勃艮第诸王多为阿里乌派——高卢的公教徒生活在阿里乌派君王之下。</p><div class="meta"><span class="chip">📍 拉文纳</span><span class="chip">👑 奥多亚克废罗慕路斯·奥古斯都路斯</span><span class="chip h">📜 亚他那修</span></div></div>
+    <div class="tl" data-era="n q" style="--c:var(--purple)"><span class="when">589</span><span class="what">第三次托莱多会议</span><p>西哥特人弃阿里乌派；西方信经加入“和子”（Filioque）。</p><div class="meta"><span class="chip">📍 托莱多</span><span class="chip">👑 雷卡雷德一世</span><span class="chip p">📜 尼西亚 · 亚他那修23</span></div></div>
+    <div class="tl star" data-era="a" style="--c:var(--green)"><span class="when">c.710–724</span><span class="what">使徒信经今日定本出现</span><p>皮尔明《摘录》首次出现通行全文；随后经卡洛林改革（查理曼，768–814）通行西方。</p><div class="meta"><span class="chip">📍 莱茵河上游 · 赖兴瑙</span><span class="chip">👑 法兰克王国 → 查理曼</span><span class="chip gr">📜 使徒</span></div></div>
+    <div class="tl" data-era="n" style="--c:var(--purple)"><span class="when">1054</span><span class="what">东西教会大分裂</span><p>“和子”争议是焦点之一。东正教只用381原文，不用亚他那修信经。</p><div class="meta"><span class="chip">📍 君士坦丁堡 · 罗马</span><span class="chip">👑 君士坦丁九世</span><span class="chip p">📜 尼西亚</span></div></div>
+    <div class="tl star" data-era="r" style="--c:var(--blue)"><span class="when">1561 / 1563</span><span class="what">比利时信条 · 海德堡要理问答</span><p>比利时信条第9条接受三信经；海德堡以使徒信经为“救赎”部分骨架。</p><div class="meta"><span class="chip">📍 图尔奈 · 海德堡</span><span class="chip">👑 腓力二世（逼迫者）/ 选帝侯腓特烈三世（委托者）</span><span class="chip b">📜 三信经</span></div></div>
+    <div class="tl star" data-era="r" style="--c:var(--blue)"><span class="when">1618–19</span><span class="what">多特会议</span><p>多特信经第二章第4条以三一—二性奠定基督之死的无限价值。</p><div class="meta"><span class="chip">📍 多特</span><span class="chip">👑 拿骚的莫里斯（执政）</span><span class="chip b">📜 尼西亚 · 亚他那修</span></div></div>
+  </div>
+  <div class="callout memo"><b class="t">只需记住的 5 位在位者</b><p><b>君士坦丁</b>（325 尼西亚）→ <b>狄奥多西一世</b>（381 君士坦丁堡）→ <b>马西安</b>（451 迦克墩）→ <b>雷卡雷德</b>（589 和子）→ <b>腓特烈三世</b>（1563 海德堡）。口诀：“<b>君·狄·马·雷·腓</b>——军敌马雷飞”。</p></div>
+
+  <h3 id="h-map"><span class="ico">🗺️</span>地理地图：三信经的诞生地</h3>
+  <p class="small muted">点击按钮切换图层；点击标记查看事件。</p>
+  <div class="map-ctrl" id="mapCtrl">
+    <button class="on" data-layer="apos" style="--c:var(--green)">🌱 使徒信经</button>
+    <button class="on" data-layer="nic" style="--c:var(--father)">🌳 尼西亚信经</button>
+    <button class="on" data-layer="ath" style="--c:var(--spirit)">🛡️ 亚他那修信经</button>
+    <button class="on" data-layer="ref" style="--c:var(--blue)">🌊 改革宗</button>
+  </div>
+  <div class="map" id="map" role="region" aria-label="三大信经历史地图"></div>
+
+  <h3 id="h-culture"><span class="ico">🎭</span>四种文化区域 · 四种信经气质</h3>
+  <div class="grid">
+    <div class="tile" style="--c:var(--green)"><h4>⚖️ 罗马：洗礼与法律</h4><p>重实际、重秩序。信条是<b>入会誓词</b>：简短、具体、可当众宣认。<b>“在本丢彼拉多手下”</b>这样的法庭式历史坐标，是罗马人的语感。→ <b>使徒信经</b></p></div>
+    <div class="tile" style="--c:var(--father)"><h4>🏛️ 希腊东方：哲学与会议</h4><p>追问“<b>是什么</b>”：ousia、hypostasis、homoousios。神学是全城话题——尼撒的贵格利说，在君士坦丁堡问面包价钱，店主答“父比子大”。→ <b>尼西亚信经</b></p></div>
+    <div class="tile" style="--c:var(--spirit)"><h4>🏝️ 南高卢：修道与教导</h4><p>勒兰“圣徒之岛”培养主教；身处阿里乌派哥特王国，需要<b>能背、能唱、能讲</b>的教义文本，也需要标记“谁属于大公教会”。→ <b>亚他那修信经</b></p></div>
+    <div class="tile" style="--c:var(--blue)"><h4>🌊 低地与莱茵：逼迫中的认信</h4><p>腓力二世逼迫下，改革宗要证明自己<b>不是新宗派，而是大公教会的正统</b>；同时抵挡重洗派与反三一论者。→ <b>三项联合信条接受三信经</b></p></div>
+  </div>
+</section>
+
+<!-- ================= 4 使徒信经 ================= -->
+<section class="sec reveal" id="apostles" style="--accent:linear-gradient(90deg,var(--green),var(--spirit))">
+  <h2 id="h-apostles"><span class="ico">🌱</span>四、使徒信经：救恩的故事</h2>
+  <div class="grid g3">
+    <div class="tile" style="--c:var(--green)"><h4>📍 真实情境</h4><p>2世纪的罗马，受洗者站在水中，被问三次：“你信父吗？你信子吗？你信圣灵吗？”每答一次“我信”，就被浸一次。<b>信经的原型就是这三个问题。</b></p></div>
+    <div class="tile" style="--c:var(--red)"><h4>⚔️ 为什么写</h4><p>马吉安说旧约的神不是耶稣的父；诺斯底说物质是恶、基督没有真身体。信经逐句回击：<b>父是创造天地的主</b>、<b>由马利亚所生</b>、<b>真受难真死</b>、<b>身体复活</b>。</p></div>
+    <div class="tile" style="--c:var(--purple)"><h4>🧩 名称之谜</h4><p>并非十二使徒所写（那是鲁菲努斯所记的传说），而是“<b>使徒教导的总结</b>”。今日全文约8世纪定型，源头可追溯到2世纪。</p></div>
+  </div>
+  <div class="callout reformed"><b class="t">改革宗读法：海德堡要理问答的骨架</b><p>Q22：基督徒必须相信什么？——福音所应许的一切，就是“我们大公无疑的基督教信仰条款”所总结的。Q23 引全文；Q24 分三部分：<span class="c-f">父与创造</span>、<span class="c-s">子与救赎</span>、<span class="c-h">灵与成圣</span>；Q26–58 逐条讲解；Q59 落到<b>因信称义</b>。加尔文《基督教要义》四卷也大体依“父—子—灵—教会”的次序编排。</p></div>
+  <h3 id="h-apos-12"><span class="ico">🔢</span>12 条逐条解析（对照海德堡要理问答）</h3>
+  <div class="arts" id="aposArts"></div>
+</section>
+
+<!-- ================= 5 尼西亚信经 ================= -->
+<section class="sec reveal" id="nicene" style="--accent:linear-gradient(90deg,var(--father),var(--son))">
+  <h2 id="h-nicene"><span class="ico">🌳</span>五、尼西亚信经：救主的身份</h2>
+  <div class="grid g3">
+    <div class="tile" style="--c:var(--father)"><h4>📍 真实情境</h4><p>318年前后，亚历山大长老阿里乌把“子是受造者”编成歌谣，水手码头工人传唱。325年，约300位主教在尼西亚聚集，君士坦丁亲临。问题只有一个：<b>耶稣是造物主，还是受造物？</b></p></div>
+    <div class="tile" style="--c:var(--red)"><h4>⚔️ 为什么写</h4><p>阿里乌派善于用圣经词句（“首生的”“父比我大”）包装异端，所以会议用了一个圣经之外、却忠于圣经意义的词：<span class="hl hl-gold">homoousios 同质</span>——一个词关上所有暗门。</p></div>
+    <div class="tile" style="--c:var(--spirit)"><h4>➕ 从325到381</h4><p>325年只说“我们信圣灵”。之后有人否认灵的神性（抗圣灵派），381年扩写圣灵条款，并加入教会、洗礼、复活、永生——成为今日全球教会最通用的信经。</p></div>
+  </div>
+  <div class="table-wrap"><table class="narrow">
+    <thead><tr><th>比较</th><th>325 尼西亚原信经</th><th>381 尼西亚—君士坦丁堡信经</th></tr></thead>
+    <tbody>
+      <tr><td>子</td><td>“从父的本质而生”“同质”</td><td>保留“同质”；加“在万世以先”“他的国度永无穷尽”</td></tr>
+      <tr><td>圣灵</td><td>只有一句“和圣灵”</td><td>“是主，是赐生命的……同受敬拜，同受尊荣，借先知说话”</td></tr>
+      <tr><td>教会与盼望</td><td>无</td><td>一圣公使徒教会、一洗、死人复活、来世生命</td></tr>
+      <tr><td>结尾</td><td>附诅咒条款（咒诅说“曾有一时祂不存在”的人）</td><td>删去诅咒条款，以“阿们”结束</td></tr>
+      <tr><td>和子</td><td>无</td><td>原文无；589 起西方版本加入</td></tr>
+    </tbody>
+  </table></div>
+  <h3 id="h-nic-keys"><span class="ico">🔑</span>14 个关键短语解析</h3>
+  <div class="arts" id="nicArts"></div>
+</section>
+
+<!-- ================= 6 亚他那修信经 ================= -->
+<section class="sec reveal" id="text" style="--accent:linear-gradient(90deg,var(--spirit),var(--son))">
+  <h2 id="h-text"><span class="ico">🛡️</span>六、亚他那修信经：正确言说的规则</h2>
+  <div class="grid g3">
+    <div class="tile" style="--c:var(--spirit)"><h4>📍 真实情境</h4><p>5世纪末的阿尔勒：城外是阿里乌派的西哥特军队，城里有哥特人的阿里乌派教堂。勒兰岛出身的主教要给拉丁文半通的乡村神父讲清“子与父同等”——他需要<b>一份像诗篇一样能唱、能背、能逐句讲解的文本</b>。</p></div>
+    <div class="tile" style="--c:var(--red)"><h4>✍️ 不是亚他那修写的</h4><p>①原文是拉丁文；②含“和子”；③预设431/451的基督论；④最早引用者是6世纪初的凯撒利乌斯。冠以亚他那修之名，是因它表达他毕生捍卫的尼西亚正统。荷兰改革宗学者<b>弗修斯</b>（1642）首先以考证证明这一点。</p></div>
+    <div class="tile" style="--c:var(--blue)"><h4>🎯 为什么写</h4><p><b>教导</b>（便于背诵）· <b>护教</b>（对阿里乌派划界）· <b>综合</b>（325/381 + 431/451 + 奥古斯丁）· <b>敬拜</b>（关键动词是“敬拜”）· <b>身份</b>（标记大公教会）。</p></div>
+  </div>
+  <p class="lead" style="margin-top:14px">中文为据拉丁原文的忠实译文（通行44条编号）。顶栏 <b>🏛️ 拉丁文</b> 可显示/隐藏原文；点击色块直接跳到对应条目。</p>  <h3 id="h-structure"><span class="ico">🧱</span>结构总览：门 · 三 · 二 · 工 · 印</h3>
+  <div class="sbar" id="sbar" aria-label="44条结构导航"></div>
+  <div class="sblocks">
+    <span style="--c:var(--gold)">门槛 1–2</span><span style="--c:var(--father)">三一·总纲 3–4</span><span style="--c:var(--orange)">三一·合一 5–20</span><span style="--c:var(--pink)">三一·区分 21–24</span><span style="--c:var(--blue)">三一·平等 25–28</span><span style="--c:var(--son)">二性 29–37</span><span style="--c:var(--spirit)">工作与审判 38–43</span><span style="--c:var(--purple)">封印 44</span>
+  </div>
+  <div class="callout key"><b class="t">文学结构：双重“包夹”（inclusio）</b><p>第1–2条 ⇄ 第44条：“得救—大公信仰”首尾呼应；第3条 ⇄ 第27条：“一中之三、三中之一”在三一论内部首尾呼应；第28条与第29条是“铰链”，把三一论与基督论扣在一起——<b>不认识三一的上帝，就不认识道成肉身的基督；反之亦然。</b></p></div>
+
+  <div class="part-head" style="--c:var(--gold)"><h3 id="h-p0"><span class="ico">🚪</span>第一段 · 门槛（1–2）</h3><span class="chip g">得救 × 大公信仰</span></div>
+  <div class="verses" data-range="1-2"></div>
+
+  <div class="part-head" style="--c:var(--father)"><h3 id="h-p1"><span class="ico">🔺</span>第二段 · 三位一体（3–28）</h3><span class="chip f">不混位格</span><span class="chip f">不分本质</span></div>
+  <div class="verses" data-range="3-4"></div>
+  <h4 class="c-f">▸ 合一：三位共享同一神性的属性（5–20）</h4>
+  <p class="small">规律：“<b>形容词</b>可三次说，<b>名词</b>只能说一次”——“父是永恒的、子是永恒的、灵是永恒的”，但“不是三个永恒者”。属性属于<b>本质</b>，本质只有一个；位格各自完全拥有它，而非三分之一。</p>
+  <div class="verses" data-range="5-20"></div>
+
+  <h3 id="h-shield"><span class="ico">🛡️</span>“三一盾徽”（Scutum Fidei）：第15–24条一图看懂</h3>
+  <div class="grid g2">
+    <div class="svgbox">
+      <svg viewBox="0 0 500 460" role="img" aria-label="三一盾徽：父子灵各是上帝，但彼此不是对方">
+        <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ffd166"/></marker></defs>
+        <g stroke-width="5" fill="none">
+          <line x1="110" y1="95" x2="390" y2="95" stroke="#ff6b6b" class="dash"/>
+          <line x1="110" y1="95" x2="250" y2="380" stroke="#ff6b6b" class="dash"/>
+          <line x1="390" y1="95" x2="250" y2="380" stroke="#ff6b6b" class="dash"/>
+          <line x1="110" y1="95" x2="250" y2="210" stroke="#34d399"/>
+          <line x1="390" y1="95" x2="250" y2="210" stroke="#34d399"/>
+          <line x1="250" y1="380" x2="250" y2="210" stroke="#34d399"/>
+        </g>
+        <g font-size="17" font-weight="800" text-anchor="middle">
+          <rect x="222" y="70" width="56" height="26" rx="8" fill="#ff6b6b"/><text x="250" y="89" fill="#111">不是</text>
+          <rect x="128" y="226" width="56" height="26" rx="8" fill="#ff6b6b"/><text x="156" y="245" fill="#111">不是</text>
+          <rect x="316" y="226" width="56" height="26" rx="8" fill="#ff6b6b"/><text x="344" y="245" fill="#111">不是</text>
+          <rect x="160" y="132" width="36" height="24" rx="7" fill="#34d399"/><text x="178" y="150" fill="#111">是</text>
+          <rect x="304" y="132" width="36" height="24" rx="7" fill="#34d399"/><text x="322" y="150" fill="#111">是</text>
+          <rect x="232" y="290" width="36" height="24" rx="7" fill="#34d399"/><text x="250" y="308" fill="#111">是</text>
+        </g>
+        <circle cx="110" cy="95" r="52" fill="#f6b73c"/><text x="110" y="92" text-anchor="middle" font-size="22" font-weight="900" fill="#111">父</text><text x="110" y="114" text-anchor="middle" font-size="12" fill="#111">Pater</text>
+        <circle cx="390" cy="95" r="52" fill="#ff5c7a"/><text x="390" y="92" text-anchor="middle" font-size="22" font-weight="900" fill="#111">子</text><text x="390" y="114" text-anchor="middle" font-size="12" fill="#111">Filius</text>
+        <circle cx="250" cy="380" r="52" fill="#22d3b6"/><text x="250" y="377" text-anchor="middle" font-size="22" font-weight="900" fill="#111">圣灵</text><text x="250" y="399" text-anchor="middle" font-size="12" fill="#111">Spiritus S.</text>
+        <circle cx="250" cy="210" r="56" fill="#ffd166" class="pulse"/><text x="250" y="208" text-anchor="middle" font-size="24" font-weight="900" fill="#111">上帝</text><text x="250" y="230" text-anchor="middle" font-size="12" fill="#111">Deus</text>
+      </svg>
+    </div>
+    <div>
+      <div class="callout key"><b class="t">读法：12 句话</b><p><span class="hl hl-green">绿线“是”</span>：父是上帝、子是上帝、圣灵是上帝（第15条）——<b>不分本质</b>。<br><span class="hl hl-red">红线“不是”</span>：父不是子、子不是灵、灵不是父（第5、24条）——<b>不混位格</b>。<br>中心只有一个“上帝”——“不是三个上帝，乃是独一上帝”（第16条）。</p></div>
+      <div class="callout warn"><b class="t">两种典型的失衡</b><p>只剩绿线、擦掉红线 → <b>形态论</b>（撒伯流、今日“独一神格派”）。<br>只剩红线、擦掉中心 → <b>三神论</b>；或把子与灵移到圈外 → <b>阿里乌主义</b>（今日“耶和华见证人”）。</p></div>
+      <div class="callout hard"><b class="t">比喻的限度</b><p>水的三态、三叶草、鸡蛋三部分——都会滑向形态论或“部分论”。信经故意<b>不用比喻</b>，只用“是/不是”的逻辑句；盾徽也只是<b>语法图</b>，不是本体图。</p></div>
+    </div>
+  </div>
+
+  <h4 class="c-f">▸ 区分：位格的“起源关系”（21–24）</h4>
+  <div class="table-wrap"><table class="narrow">
+    <thead><tr><th>位格</th><th>位格特性（拉丁）</th><th>关系</th><th>经文</th><th>信经</th></tr></thead>
+    <tbody>
+      <tr><td><span class="chip f">父</span></td><td><i>innascibilitas</i> 非受生</td><td>不出于任何者</td><td>林前8:6；弗4:6</td><td>第21条</td></tr>
+      <tr><td><span class="chip s">子</span></td><td><i>generatio</i> 永恒受生</td><td>唯独出于父</td><td>约1:14,18；3:16；诗2:7</td><td>第22条</td></tr>
+      <tr><td><span class="chip h">灵</span></td><td><i>processio</i> 永恒发出</td><td>出于父<b>和子</b></td><td>约15:26；加4:6；罗8:9</td><td>第23条</td></tr>
+    </tbody>
+  </table></div>
+  <div class="verses" data-range="21-24"></div>
+  <h4 class="c-b">▸ 平等与小结（25–28）</h4>
+  <div class="verses" data-range="25-28"></div>
+
+  <div class="part-head" style="--c:var(--son)"><h3 id="h-p2"><span class="ico">✝️</span>第三段 · 道成肉身：真神真人一位（29–37）</h3><span class="chip s">取人性，非变人性</span><span class="chip s">位格合一，非本质混合</span></div>
+  <div class="verses" data-range="29-33"></div>
+
+  <h3 id="h-twonatures"><span class="ico">⚖️</span>二性一位图：迦克墩“四不”与信经34–37条</h3>
+  <div class="grid g2">
+    <div class="svgbox">
+      <svg viewBox="0 0 520 400" role="img" aria-label="基督一个位格两个本性示意图">
+        <rect x="20" y="20" width="480" height="300" rx="28" fill="none" stroke="#ffd166" stroke-width="3" stroke-dasharray="10 6" class="dash"/>
+        <text x="260" y="52" text-anchor="middle" font-size="18" font-weight="900" fill="#ffd166">一个位格：永恒的圣子（第34、36条）</text>
+        <circle cx="175" cy="185" r="100" fill="#ffd166" fill-opacity=".85"/>
+        <circle cx="345" cy="185" r="100" fill="#ff5c7a" fill-opacity=".85"/>
+        <text x="160" y="165" text-anchor="middle" font-size="22" font-weight="900" fill="#111">神性</text>
+        <text x="160" y="192" text-anchor="middle" font-size="13" fill="#111">出于父的本质</text>
+        <text x="160" y="212" text-anchor="middle" font-size="13" fill="#111">万世之先受生</text>
+        <text x="160" y="232" text-anchor="middle" font-size="13" fill="#111">与父同等</text>
+        <text x="362" y="165" text-anchor="middle" font-size="22" font-weight="900" fill="#111">人性</text>
+        <text x="362" y="192" text-anchor="middle" font-size="13" fill="#111">出于母的本质</text>
+        <text x="362" y="212" text-anchor="middle" font-size="13" fill="#111">理性灵魂+肉身</text>
+        <text x="362" y="232" text-anchor="middle" font-size="13" fill="#111">低于父</text>
+        <rect x="236" y="166" width="48" height="38" rx="10" fill="#0e1430" stroke="#ffd166"/>
+        <text x="260" y="191" text-anchor="middle" font-size="16" font-weight="900" fill="#ffd166">联合</text>
+        <g font-size="14" font-weight="800" text-anchor="middle">
+          <rect x="20" y="338" width="112" height="44" rx="12" fill="#ff6b6b"/><text x="76" y="359" fill="#111">不混合</text><text x="76" y="376" fill="#111" font-size="11">反欧迪奇</text>
+          <rect x="142" y="338" width="112" height="44" rx="12" fill="#fb923c"/><text x="198" y="359" fill="#111">不改变</text><text x="198" y="376" fill="#111" font-size="11">神性不变成肉</text>
+          <rect x="264" y="338" width="112" height="44" rx="12" fill="#a78bfa"/><text x="320" y="359" fill="#111">不分割</text><text x="320" y="376" fill="#111" font-size="11">反聂斯脱利</text>
+          <rect x="386" y="338" width="114" height="44" rx="12" fill="#5aa9ff"/><text x="443" y="359" fill="#111">不离散</text><text x="443" y="376" fill="#111" font-size="11">永不分开</text>
+        </g>
+      </svg>
+    </div>
+    <div class="table-wrap"><table class="narrow">
+      <thead><tr><th>信经条目</th><th>肯定</th><th>否定</th><th>针对</th></tr></thead>
+      <tbody>
+        <tr><td>30–31</td><td>是神，出于父的本质</td><td>子不是受造者</td><td><span class="tag her">阿里乌</span><span class="tag her">嗣子论</span></td></tr>
+        <tr><td>31–32</td><td>是人，出于母的本质，有理性灵魂</td><td>人性不是幻影、不是“半个人”</td><td><span class="tag her">幻影论</span><span class="tag her">亚波里拿留</span><span class="tag her">重洗派“天上肉身”</span></td></tr>
+        <tr><td>33</td><td>按神性同等，按人性较低</td><td>不是本质上的次位</td><td><span class="tag her">次位论</span></td></tr>
+        <tr><td>34</td><td>一位基督</td><td>不是两个儿子</td><td><span class="tag her">聂斯脱利</span></td></tr>
+        <tr><td>35</td><td>上帝取了人性</td><td>不是神性转变为肉身</td><td><span class="tag her">转化论</span></td></tr>
+        <tr><td>36</td><td>位格的合一</td><td>不是本质的混合</td><td><span class="tag her">欧迪奇（一性论）</span></td></tr>
+        <tr><td>37</td><td>灵魂+身体=一人；神+人=一基督</td><td>比喻只说明“一而二”，不说明“混合”</td><td>—</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="verses" data-range="34-37"></div>
+
+  <div class="part-head" style="--c:var(--spirit)"><h3 id="h-p3"><span class="ico">🌅</span>第四段 · 基督的工作与末后审判（38–43）</h3><span class="chip h">受难 → 降阴间 → 复活 → 升天 → 坐右边 → 再来</span></div>
+  <div class="diagram"><pre class="mermaid">
+flowchart LR
+  A["✝️ 受难<br/>为我们的救恩"]:::s --> B["⬇️ 降在阴间<br/>海德堡Q44"]:::p --> C["🌅 第三日复活"]:::g --> D["☁️ 升天"]:::b --> E["👑 坐父右边"]:::f --> F["⚡ 再来审判"]:::r --> G["🧍 万人身体复活"]:::h --> H["📒 交账"]:::p --> I["🌈 永生 / 🔥 永火"]:::gold
+  classDef gold fill:#ffd166,stroke:#ffd166,color:#111
+  classDef f fill:#f6b73c,stroke:#f6b73c,color:#111
+  classDef s fill:#ff5c7a,stroke:#ff5c7a,color:#111
+  classDef h fill:#22d3b6,stroke:#22d3b6,color:#111
+  classDef r fill:#ff6b6b,stroke:#ff6b6b,color:#111
+  classDef g fill:#34d399,stroke:#34d399,color:#111
+  classDef b fill:#5aa9ff,stroke:#5aa9ff,color:#111
+  classDef p fill:#a78bfa,stroke:#a78bfa,color:#111
+  </pre></div>
+  <p class="small">这一段几乎逐字取自<b>使徒信经</b>的第二、三部分——信经作者有意把“精密的教义”接回“教会人人会背的信仰”。降卑（受难、降阴间）与升高（复活、升天、坐右边、再来）构成改革宗所说的<span class="hl hl-gold">基督的两种状态</span>（海德堡Q37–52）。</p>
+  <div class="verses" data-range="38-43"></div>
+
+  <div class="part-head" style="--c:var(--purple)"><h3 id="h-p4"><span class="ico">🔏</span>第五段 · 封印（44）</h3><span class="chip p">首尾呼应</span></div>
+  <div class="verses" data-range="44-44"></div>
+</section>
+
+
+<!-- ================= 7 异端 ================= -->
+<section class="sec reveal" id="heresy" style="--accent:linear-gradient(90deg,var(--red),var(--orange))">
+  <h2 id="h-heresy"><span class="ico">🚧</span>七、异端地图：三信经关上的每一扇门</h2>
+  <p class="lead">正统不是“中间立场”，而是<b>同时持守圣经的全部启示</b>；异端往往是把一半真理推到极端。</p>
+  <div class="diagram wide"><pre class="mermaid">
+flowchart TD
+  Q1{"父、子、灵都是真神吗？"}:::q -->|否| X1["❌ 阿里乌 / 抗圣灵派<br/>今：耶和华见证人"]:::r
+  Q1 -->|是| Q2{"三位真实区分吗？"}:::q
+  Q2 -->|否| X2["❌ 撒伯流形态论<br/>今：独一神格派"]:::r
+  Q2 -->|是| Q3{"是三个神吗？"}:::q
+  Q3 -->|是| X3["❌ 三神论 / 多神论"]:::r
+  Q3 -->|否| OK1["✅ 三一正统"]:::g
+  OK1 --> Q4{"基督完全是人吗？"}:::q
+  Q4 -->|否| X4["❌ 幻影论 / 亚波里拿留"]:::r
+  Q4 -->|是| Q5{"二性是一个位格吗？"}:::q
+  Q5 -->|否| X5["❌ 聂斯脱利"]:::r
+  Q5 -->|是| Q6{"二性各保其性吗？"}:::q
+  Q6 -->|否| X6["❌ 欧迪奇一性论"]:::r
+  Q6 -->|是| OK2["✅ 迦克墩正统"]:::g
+  classDef q fill:#a78bfa,stroke:#a78bfa,color:#111
+  classDef r fill:#ff6b6b,stroke:#ff6b6b,color:#111
+  classDef g fill:#34d399,stroke:#34d399,color:#111
+  </pre></div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>异端</th><th>人物 · 时地</th><th>主张</th><th>🌱 使徒</th><th>🌳 尼西亚</th><th>🛡️ 亚他那修</th><th>今日变体</th></tr></thead>
+    <tbody>
+      <tr><td><span class="chip r">马吉安主义</span></td><td>马吉安 · c.144 · 罗马</td><td>旧约之神≠耶稣的父</td><td>1 创造天地的主</td><td>独一上帝</td><td>16</td><td>“旧约的神很凶”</td></tr>
+      <tr><td><span class="chip r">诺斯底 / 幻影论</span></td><td>2世纪 · 各地</td><td>物质是恶，基督无真身</td><td>3–4、11</td><td>成肉身而成为人</td><td>31–32</td><td>灵肉二元的灵修</td></tr>
+      <tr><td><span class="chip r">形态论</span></td><td>撒伯流 · c.215 · 罗马</td><td>一神轮戴三面具</td><td>三段结构</td><td>“为父所生”</td><td>4–5、24</td><td>独一神格派</td></tr>
+      <tr><td><span class="chip r">阿里乌主义</span></td><td>阿里乌 · c.318 · 亚历山大</td><td>子是最高受造者</td><td>“独生子”</td><td>受生而非被造，同质</td><td>8、22、25</td><td>耶和华见证人</td></tr>
+      <tr><td><span class="chip r">抗圣灵派</span></td><td>4世纪下半</td><td>灵是受造的能力</td><td>8</td><td>是主，同受敬拜</td><td>15、23</td><td>把灵当“力量”</td></tr>
+      <tr><td><span class="chip r">亚波里拿留</span></td><td>c.360 · 老底嘉</td><td>道取代人的心智</td><td>—</td><td>“成为人”</td><td>32 理性的灵魂</td><td>“耶稣只有人的身体”</td></tr>
+      <tr><td><span class="chip r">聂斯脱利</span></td><td>428 · 君士坦丁堡</td><td>神子与人子两位</td><td>“独生子……所生”同一主语</td><td>同一位“为我们”</td><td>34</td><td>神性/人性耶稣二分</td></tr>
+      <tr><td><span class="chip r">欧迪奇</span></td><td>448 · 君士坦丁堡</td><td>人性被神性吞没</td><td>—</td><td>—</td><td>35–36</td><td>神秘主义的“吞没”</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= 8 改革宗 ================= -->
+<section class="sec reveal" id="reformed" style="--accent:linear-gradient(90deg,var(--blue),var(--green))">
+  <h2 id="h-reformed"><span class="ico">🌊</span>八、欧陆改革宗视角：三信经 × 三项联合信条</h2>
+  <div class="quote">“……我们乐意接受三大信经，即使徒信经、尼西亚信经和亚他那修信经，以及古代教父们与之相符而确立的内容。”<cite>—— 比利时信条第9条（大意）。该条先列经文证据，后提信经：先圣经，后信经。</cite></div>
+
+  <h3 id="h-forms"><span class="ico">🔗</span>教义主题对照总表</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>主题</th><th>🌱 使徒</th><th>🌳 尼西亚</th><th>🛡️ 亚他那修</th><th>比利时信条</th><th>海德堡</th><th>多特</th></tr></thead>
+    <tbody>
+      <tr><td><b>三一上帝</b></td><td>三段结构</td><td>独一上帝；灵同受敬拜</td><td>3–28</td><td>1、8–9</td><td>Q24–25</td><td>—</td></tr>
+      <tr><td><b>父与创造护理</b></td><td>1</td><td>有形无形万物</td><td>21</td><td>12–13</td><td>Q26–28</td><td>—</td></tr>
+      <tr><td><b>子的神性</b></td><td>2 独生子</td><td>受生而非被造，同质</td><td>15、22、25–26</td><td>10</td><td>Q33</td><td>II.4</td></tr>
+      <tr><td><b>道成肉身</b></td><td>3</td><td>成肉身而成为人</td><td>29–33</td><td>18</td><td>Q14–18、35–36</td><td>II.4</td></tr>
+      <tr><td><b>二性一位</b></td><td>—</td><td>—</td><td>34–37</td><td>19</td><td>Q47–48</td><td>—</td></tr>
+      <tr><td><b>受难与降阴间</b></td><td>4</td><td>为我们钉十字架</td><td>38</td><td>20–21</td><td>Q37–44</td><td>II.2–3</td></tr>
+      <tr><td><b>复活升天再来</b></td><td>5–7</td><td>照圣经所言……国度无穷</td><td>38–40</td><td>26、37</td><td>Q45–52</td><td>—</td></tr>
+      <tr><td><b>圣灵</b></td><td>8</td><td>是主，从父和子出来</td><td>15、23</td><td>11</td><td>Q53</td><td>III/IV.11–12</td></tr>
+      <tr><td><b>教会与圣礼</b></td><td>9</td><td>一圣公使徒教会；一洗</td><td>1、44</td><td>27–35</td><td>Q54–55、65–82</td><td>V.14</td></tr>
+      <tr><td><b>赦罪与称义</b></td><td>10</td><td>使罪得赦</td><td>—</td><td>22–23</td><td>Q56、59–64</td><td>II.7–8</td></tr>
+      <tr><td><b>复活、审判、永生</b></td><td>11–12</td><td>死人复活，来世生命</td><td>41–43</td><td>37</td><td>Q57–58</td><td>V.11–12</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 id="h-hc"><span class="ico">📗</span>海德堡的结构：信经在“罪—救—恩”中的位置</h3>
+  <div class="diagram"><pre class="mermaid">
+flowchart LR
+  A["😞 罪与苦难<br/>Q3-11 · 律法照出"]:::r --> B["🙌 得救赎<br/>Q12-85"]:::gold --> C["💐 感恩<br/>Q86-129 · 十诫 · 主祷文"]:::g
+  B --> B1["⚖️ 中保 Q12-19"]:::s
+  B --> B2["📜 使徒信经 Q20-58"]:::gr
+  B --> B3["✅ 因信称义 Q59-64"]:::b
+  B --> B4["💧 圣礼 Q65-82"]:::h
+  classDef gold fill:#ffd166,stroke:#ffd166,color:#111
+  classDef s fill:#ff5c7a,stroke:#ff5c7a,color:#111
+  classDef h fill:#22d3b6,stroke:#22d3b6,color:#111
+  classDef r fill:#ff6b6b,stroke:#ff6b6b,color:#111
+  classDef g fill:#34d399,stroke:#34d399,color:#111
+  classDef gr fill:#34d399,stroke:#ffd166,color:#111
+  classDef b fill:#5aa9ff,stroke:#5aa9ff,color:#111
+  </pre></div>
+
+  <h3 id="h-distinct"><span class="ico">💎</span>改革宗的五个特色读法</h3>
+  <div class="grid">
+    <div class="tile" style="--c:var(--blue)"><h4>① 圣经 &gt; 信经</h4><p>信经有权威，因为它忠于圣经（比利时信条第7、9条）。1537年卡罗利逼加尔文签署三信经以证“不是阿里乌派”，加尔文<b>拒绝在胁迫下签署</b>，却完全认信其内容（《要义》1.13）——他拒绝的是把人的文字与圣经并列为最高标准。</p></div>
+    <div class="tile" style="--c:var(--son)"><h4>② 子是 autotheos</h4><p>加尔文：就位格言，子受生于父；就本质言，子<b>本身就是神</b>，不是从父“领受”次一等的神性。这把尼西亚“同质”、亚他那修“同等同永恒”推到最彻底。</p></div>
+    <div class="tile" style="--c:var(--spirit)"><h4>③ 二性“不混”</h4><p>升天的基督按人性在天上，按神性无所不在、从未离开人性（海德堡Q47–48，“加尔文主义之外”）。改革宗以亚他那修第36条“不是本质的混合”为据，不同于路德宗的“人性无所不在”。</p></div>
+    <div class="tile" style="--c:var(--purple)"><h4>④ 降阴间 → 十架</h4><p>海德堡Q44：基督在十架上（尤其在客西马尼与十架）承受了<b>地狱般的痛苦与被弃</b>，好叫我在最深的试探中确知：我已从地狱的痛苦中被救赎。</p></div>
+    <div class="tile" style="--c:var(--green)"><h4>⑤ 和子 → 道与灵</h4><p>灵出于父<b>和子</b>，所以圣灵是“基督的灵”，总是<b>借着基督的道</b>工作（海德堡Q54、Q65；多特III/IV.17）：不离开圣经去寻求灵。</p></div>
+  </div>
+  <div class="callout reformed"><b class="t">多特信经第二章第4条（大意）</b><p>基督之死所以有无限的价值与尊荣，是因为受死的那位不但是<b>真正而完全圣洁的人</b>，也是<b>上帝的独生子，与父和圣灵同一永恒无限的本质</b>。——这就是尼西亚“同质”与亚他那修第30–33条的<b>救恩论落点</b>：恩典教义建在大公三一论的地基上。</p></div>
+
+  <h3 id="h-hard"><span class="ico">🧩</span>难点辨析</h3>
+  <details class="more" open><summary>🧩 “圣而公之教会”“大公信仰”是指罗马天主教吗？</summary><p><b>不是。</b>catholica 意为“普世的、整全的”。海德堡Q54：神的儿子从世界之始到末了召聚的那一群蒙拣选者，<b>我是其中活的肢体</b>。大公教会是历世历代所有真信徒的教会。</p></details>
+  <details class="more"><summary>🧩 “降在阴间”是基督下到某个地方吗？</summary><p>此句最晚进入使徒信经（c.404 鲁菲努斯所记）。改革宗不否认基督真死、灵魂离开身体，但按海德堡Q44 理解其<b>核心意义</b>：十架上的地狱般痛苦。尼西亚信经没有这一句，亚他那修信经第38条有。</p></details>
+  <details class="more"><summary>🧩 亚他那修信经的“诅咒条款”是说人靠背对教义得救吗？</summary><p>不是。改革宗按<b>唯独信心</b>来读：信心的<b>对象</b>是三一上帝在基督里的启示。人可能不懂“位格”“本质”这些词，却真实信靠父、子、圣灵；但若<b>明知而拒绝</b>圣经所启示的上帝（如否认基督是神），所信的就是另一位神（约壹2:23）。条款是<b>警告</b>（如加1:8-9），不是考试。</p></details>
+  <details class="more"><summary>🧩 “行善的进入永生”（亚他那修43）与因信称义冲突吗？</summary><p>不冲突。审判<b>按着</b>行为（林后5:10），不是<b>因着</b>行为（弗2:8-10）。善行是真信心必然的果子与证据（比利时信条第24条；海德堡Q64、Q86）。</p></details>
+  <details class="more"><summary>🧩 “低于父”（亚他那修33）、“父比我大”（约14:28）是次位论吗？</summary><p>不是。限定词是“<b>按人性</b>”。约10:30 按神性，约14:28 按人性与中保职分——区分二性的释经法则。</p></details>
+  <details class="more"><summary>🧩 “和子”句值得东西分裂吗？</summary><p>改革宗保留和子句，因约15:26 与 约16:7、加4:6 显示子也差遣圣灵，灵是“祂儿子的灵”。同时承认1054分裂还有政治与教权因素，<b>应以经文而非权力讨论此题</b>。</p></details>
+</section>
+
+<!-- ================= 9 多角度 + 导图 ================= -->
+<section class="sec reveal" id="angles" style="--accent:linear-gradient(90deg,var(--pink),var(--purple))">
+  <h2 id="h-angles"><span class="ico">🔭</span>九、多角度解读与思维导图</h2>
+  <div class="grid">
+    <div class="tile" style="--c:var(--father)"><h4>🏺 历史</h4><p>三信经是教会在<b>逼迫（2世纪）、皇权（4世纪）、蛮族（5世纪）</b>三种处境中守住同一信仰的见证。</p></div>
+    <div class="tile" style="--c:var(--gold)"><h4>🧠 教义</h4><p>由简到繁、层层收紧：使徒给出<b>内容</b>，尼西亚给出<b>定义</b>，亚他那修给出<b>规则</b>。</p></div>
+    <div class="tile" style="--c:var(--blue)"><h4>📖 圣经神学</h4><p>示玛（申6:4）在新约中展开为父、子、灵；三信经是这一展开的<b>收束</b>。</p></div>
+    <div class="tile" style="--c:var(--green)"><h4>🤝 圣约神学</h4><p>立约的上帝（三一）、立约的中保（二性一位）、约的记号（一洗）、约的终局（复活永生）。</p></div>
+    <div class="tile" style="--c:var(--spirit)"><h4>🎶 敬拜</h4><p>使徒信经入<b>洗礼</b>，尼西亚信经入<b>主日圣餐礼拜</b>，亚他那修信经入<b>晨祷</b>——教义为敬拜服务。</p></div>
+    <div class="tile" style="--c:var(--son)"><h4>💗 牧养</h4><p>替我受苦的是<b>真人</b>，能体恤（来4:15）；能救我到底的是<b>真神</b>（来7:25）。</p></div>
+    <div class="tile" style="--c:var(--red)"><h4>⚔️ 护教</h4><p>面对耶和华见证人、独一神格派、摩门教、穆斯林、自由派神学，三信经是<b>现成的检查清单</b>。</p></div>
+    <div class="tile" style="--c:var(--purple)"><h4>🌐 宗派比较</h4><p><b>东正教</b>：只用381原文；<b>罗马天主教</b>：三信经皆用；<b>路德宗</b>：收入《协同书》；<b>改革宗</b>：比利时信条第9条接受。</p></div>
+  </div>
+  <h3 id="h-mindmap"><span class="ico">🕸️</span>思维导图</h3>
+  <div class="diagram wide"><pre class="mermaid">
+mindmap
+  root((三大普世信经))
+    使徒信经
+      罗马洗礼 约2世纪
+      12条 三段
+      故事 我信
+      海德堡 Q23至58
+    尼西亚信经
+      325 子同质
+      381 灵是主
+      受生而非被造
+      为要拯救我们
+    亚他那修信经
+      约500 南高卢
+      不混位格 不分本质
+      真神真人一位
+      取人性非变化
+    共同骨架
+      父 创造
+      子 救赎
+      灵 成圣
+      教会与盼望
+    改革宗
+      比利时信条9
+      海德堡 Q44 Q47至48
+      多特 第二章第4条
+      圣经高于信经
+    应用
+      敬拜 祷告
+      洗礼入约
+      确据安慰
+      辨别异端
+  </pre></div>
+</section>
+
+<!-- ================= 10 应用 ================= -->
+<section class="sec reveal" id="apply" style="--accent:linear-gradient(90deg,var(--green),var(--spirit))">
+  <h2 id="h-apply"><span class="ico">🌱</span>十、什么应用：从书桌到生活</h2>
+  <div class="grid g3">
+    <div class="tile" style="--c:var(--gold)"><h4>🙌 敬拜</h4><p>三一论首先是敬拜的对象。在敬拜中有意识地<b>向父感恩、因子得近、靠灵祈求</b>（弗2:18）。</p></div>
+    <div class="tile" style="--c:var(--blue)"><h4>🙏 祷告</h4><p>主祷文称“我们在天上的父”，因我们在子里被收纳，圣灵使我们呼叫“阿爸，父”（加4:6；海德堡Q120）。</p></div>
+    <div class="tile" style="--c:var(--son)"><h4>🛡️ 确据</h4><p>海德堡Q1：父看顾、子以宝血偿还、灵使我确知永生——<b>安慰的结构就是三一的结构</b>。</p></div>
+    <div class="tile" style="--c:var(--spirit)"><h4>💧 圣礼</h4><p>你是奉三一之名受洗、被立约收纳的人；圣餐中，在天上的基督借圣灵使我们与祂真实相交（海德堡Q76）。</p></div>
+    <div class="tile" style="--c:var(--purple)"><h4>🏘️ 教会</h4><p>“大公”提醒：改革宗不是宗派孤岛，与历代圣徒<b>认同一位上帝、背同一部信经</b>。</p></div>
+    <div class="tile" style="--c:var(--red)"><h4>🧭 辨别</h4><p>听到“耶稣是神所造最高的灵”“父子灵只是三种角色”时，用“<b>不混位格、不分本质</b>”立即辨别。</p></div>
+    <div class="tile" style="--c:var(--green)"><h4>🌍 宣教</h4><p>大使命的内容本身是三一的：使万民<b>进入父、子、圣灵的名</b>（太28:19）。</p></div>
+    <div class="tile" style="--c:var(--orange)"><h4>💔 受苦</h4><p>真人基督知道你的眼泪；真神基督掌管你的明天；一位基督保证这两者<b>永不分离</b>。</p></div>
+    <div class="tile" style="--c:var(--pink)"><h4>⏳ 盼望</h4><p>“我盼望死人复活，并来世的生命”——在一切忧患中<b>昂首期待</b>那位曾替我受审判的审判者（海德堡Q52）。</p></div>
+  </div>
+  <div class="callout apply"><b class="t">一周操练</b><p>周一背使徒信经；周二读海德堡Q23–25；周三背尼西亚信经子的段落；周四读比利时信条第8–11条；周五背亚他那修信经1–4条并画三一盾徽；周六读多特信经第二章第3–4条；主日在敬拜中留意每一处“父、子、圣灵”。</p></div>
+</section>
+
+<!-- ================= 11 记忆训练 ================= -->
+<section class="sec reveal" id="review" style="--accent:linear-gradient(90deg,var(--pink),var(--gold))">
+  <h2 id="h-review"><span class="ico">🎯</span>十一、记忆训练：闪卡 + 自测</h2>
+  <h3 id="h-cards"><span class="ico">🃏</span>闪卡（点击翻面）</h3>
+  <div class="cards" id="cards"></div>
+  <h3 id="h-quiz"><span class="ico">✅</span>自测 15 题</h3>
+  <div class="quiz" id="quiz"></div>
+  <div style="margin-top:12px"><span class="score" id="score">得分 0 / 15</span> <button class="icon-btn" id="quizReset" style="margin-left:8px">🔄 重做</button></div>
+</section>
+
+<!-- ================= 12 参考 ================= -->
+<section class="sec reveal" id="refs" style="--accent:linear-gradient(90deg,var(--muted),var(--blue))">
+  <h2 id="h-refs"><span class="ico">📚</span>十二、参考书目</h2>
+  <div class="grid g2">
+    <div class="tile" style="--c:var(--blue)"><h4>🌊 改革宗信条</h4><ul>
+      <li>比利时信条（1561），第1、3、7–13、18–29、34、37条</li>
+      <li>海德堡要理问答（1563），Q1、12–64、86、120</li>
+      <li>多特信经（1619），第二章第2–4、7–8条；第三/四章第11–12、17条</li></ul></div>
+    <div class="tile" style="--c:var(--gold)"><h4>📖 神学与历史</h4><ul>
+      <li>J. N. D. Kelly, <i>Early Christian Creeds</i>；<i>The Athanasian Creed</i></li>
+      <li>Philip Schaff, <i>The Creeds of Christendom</i></li>
+      <li>加尔文《基督教要义》1.13；2.16</li>
+      <li>Herman Bavinck, <i>Reformed Dogmatics</i>, vol.2</li>
+      <li>B. B. Warfield, “The Biblical Doctrine of the Trinity”</li></ul></div>
+  </div>
+  <p class="small muted">说明：三信经中文为通行译文的整理版；所引信条条文为大意转述，请以所在教会采用的正式译本为准。年代采用学界通行说法，有争议处标注“约（c.）”。</p>
+</section>
+
+<footer>📜 三大普世信经 · 欧陆改革宗深度解读 · v2 · 2026-10-14<br>Soli Deo Gloria — 荣耀唯独归于三一上帝</footer>
+</main>
+</div>
+
+<button class="fab" id="toTop" aria-label="回到顶部">↑</button>
+
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+<script type="module">
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.esm.min.mjs";
+  window.__mermaid = mermaid;
+  window.dispatchEvent(new Event("mermaid-ready"));
+</script>
+</body>
+</html>
